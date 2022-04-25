@@ -8,7 +8,7 @@ import org.wildfly.common.Assert;
  * @author zhaoyunxing
  * @date 2022-04-25 16:57:12
  */
-class IfFunctionTest {
+public class IfFunctionTest {
 
     @Test
     void call() {
