@@ -13,8 +13,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -42,13 +44,18 @@ public class CalculateController {
         Map<String, FieldDefinition> fields = req.getDefines().stream()
                 .collect(Collectors.toMap(FieldDefinition::getFieldId, s -> s, (k1, k2) -> k1));
 
-        List<Map<String, Object>> collect = req.getUsers().stream().peek(user -> {
-
+        List<Map<String, Object>> collect = req.getUsers().stream().map(user -> {
+            Map<String, Object> data = new HashMap<>(user.size());
             user.forEach((key, value) -> {
                 FieldDefinition df = fields.getOrDefault(key, null);
-//                data.setValue(df.analysis(user));
-                user.putIfAbsent(key, df.analysis(user));
+                Object val = value;
+                if (Objects.nonNull(df)) {
+                    val = df.analysis(user);
+                    user.put(key, val);
+                }
+                data.put(key, val);
             });
+            return data;
         }).collect(Collectors.toList());
         return Response.getSuccess(collect);
     }
