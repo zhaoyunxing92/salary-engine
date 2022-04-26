@@ -1,5 +1,6 @@
 package org.salary.engine.models;
 
+import com.googlecode.aviator.AviatorEvaluator;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,48 +56,14 @@ public class FieldDefinition {
     private String expression;
 
     /**
+     * 小数位数
+     */
+    private int digits = 2;
+
+    /**
      * 参数验证
      */
-    public boolean validate(Object value) {
-        FieldType type = FieldType.getInstance(fieldType);
-        switch (type) {
-            case NUMBER:
-                String num = String.valueOf(value);
-                if (!NumberUtils.isNumber(num)) {
-                    return false;
-                }
-                break;
-            case DATE:
-                try {
-                    String date = String.valueOf(value);
-                    DateUtils.parseDate(date, "yyyy-MM-dd", "yyy-MM-dd HH:mm:ss");
-                } catch (ParseException ex) {
-                    return false;
-                }
-                break;
-            case CHECKBOX:
-            case SELECTION:
-
-                List<String> strings;
-                if (value instanceof String) {
-                    strings = Collections.singletonList(value.toString());
-                } else if (value instanceof Collection) {
-                    strings = (ArrayList<String>) value;
-                } else {
-                    return false;
-                }
-                if (type.equals(SELECTION) && strings.size() > 1) {
-                    return false;
-                }
-                break;
-            case STRING:
-                //字符串验证手机格式
-                String str = String.valueOf(value);
-                if (required && StringUtils.isBlank(str)) {
-                    return false;
-                }
-                break;
-        }
-        return true;
+    public Object analysis(Map<String, Object> env) {
+        return AviatorEvaluator.getInstance().execute(expression, env);
     }
 }
