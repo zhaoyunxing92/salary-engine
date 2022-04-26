@@ -12,9 +12,10 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class RegisterJsonCustomizer implements ObjectMapperCustomizer {
+
     @Override
-    public void customize(ObjectMapper objectMapper) {
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+    public void customize(ObjectMapper obj) {
+        obj.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        obj.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 }

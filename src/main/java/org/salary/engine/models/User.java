@@ -34,4 +34,9 @@ public class User {
      * 工龄
      */
     private Integer seniority;
+
+    /**
+     * 提成
+     */
+    private Integer commission;
 }

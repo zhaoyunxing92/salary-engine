@@ -7,6 +7,7 @@ import org.salary.engine.models.FieldDefinition;
 import org.salary.engine.models.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author zhaoyunxing
@@ -24,5 +25,5 @@ public class Calculate {
     /**
      * 计算数据
      */
-    private List<User> users;
+    private List<Map<String, Object>> users;
 }

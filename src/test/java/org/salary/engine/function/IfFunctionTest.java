@@ -15,7 +15,7 @@ public class IfFunctionTest {
         // 注册自定义函数
         AviatorEvaluator.addFunction(new IF());
         AviatorEvaluator.addFunction(new SUM());
-        long num = (Long) AviatorEvaluator.getInstance().execute("IF(SUM(4,2)<5,4,3)");
+        long num = (Long) AviatorEvaluator.getInstance().execute("IF(SUM(IF(1==1,4,7),2)<5,4,3)");
         Assert.assertTrue(num == 3);
     }
 }
