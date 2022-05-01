@@ -3,16 +3,11 @@
 
 name: Release
 
-#on:
-#  push:
-#    tags:
-#      - 'v*'
-
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    tags:
+      - 'v*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,5 +36,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: zhaoyunxing/salary-engine:v1.0.0
-          #tags: zhaoyunxing/salary-engine:${{ steps.get_version.outputs.VERSION }}
+          tags: zhaoyunxing/salary-engine:${{ steps.get_version.outputs.VERSION }}
