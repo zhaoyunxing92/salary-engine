@@ -34,7 +34,6 @@ jobs:
       - name: Get version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-#        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 
       - name: Build and push
         uses: docker/build-push-action@v2
@@ -42,4 +41,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: zhaoyunxing/salary-engine:${{ steps.get_version.outputs.VERSION }}
+          tags: zhaoyunxing/salary-engine:v1.0.0
+          #tags: zhaoyunxing/salary-engine:${{ steps.get_version.outputs.VERSION }}
