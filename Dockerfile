@@ -6,7 +6,7 @@ COPY pom.xml .
 USER root
 RUN chown -R quarkus .
 USER quarkus
-RUN mvn -Pnative clean package
+RUN ./mvnw package -Pnative -Dquarkus.native.container-build=true -DskipTests
 
 FROM registry.access.redhat.com/ubi8/ubi-minimal
 WORKDIR /app

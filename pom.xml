@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.salary.engine</groupId>
-    <artifactId>engine</artifactId>
+    <artifactId>salary-engine</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -108,6 +108,9 @@
     <profiles>
         <profile>
             <id>native</id>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <activation>
                 <property>
                     <name>native</name>
