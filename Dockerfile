@@ -1,5 +1,5 @@
 # builder
-FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 AS build
 WORKDIR /app
 COPY src ./src
 COPY pom.xml .
@@ -8,7 +8,7 @@ RUN chown -R quarkus .
 USER quarkus
 RUN mvn package -Pnative -Dquarkus.native.container-build=true -DskipTests
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
 WORKDIR /app
 COPY --from=build ./target/*-runner /app/engine
 RUN chmod 775 /app
