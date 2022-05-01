@@ -1,7 +1,8 @@
 # builder
 FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
-COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
+#COPY src /usr/src/app/src
+#COPY pom.xml /usr/src/app
+COPY . .
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
