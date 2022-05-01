@@ -1,4 +1,10 @@
-*
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*
+
+.idea
+.mvn
+README.md
+mvnw
+.gitignore
+.github
