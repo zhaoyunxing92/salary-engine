@@ -108,9 +108,6 @@
     <profiles>
         <profile>
             <id>native</id>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-            </properties>
             <activation>
                 <property>
                     <name>native</name>
