@@ -1,16 +1,12 @@
 # builder
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1 AS build
+FROM openjdk:8-jdk-alpine3.9 AS build
 WORKDIR /app
-COPY src ./src
-COPY pom.xml .
-USER root
-RUN chown -R quarkus .
-USER quarkus
-RUN mvn package -Pnative -Dquarkus.native.container-build=true -DskipTests
+COPY . .
+RUN ./mvnw clean package -DskipTests
 
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
+FROM openjdk:8-jdk-alpine3.9 AS run
 WORKDIR /app
-COPY --from=build ./target/*-runner /app/engine
+COPY --from=build ./target/*-runner /app/engine.jar
 RUN chmod 775 /app
 EXPOSE 8080
-CMD ["./engine", "-Dquarkus.http.host=0.0.0.0"]
+CMD ["java", "-jar","engine.jar"]
